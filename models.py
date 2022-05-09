@@ -58,7 +58,7 @@ def encoder(h, img_dim, channels, n = 128):
     
     for i in range(1, layers):
         x = Convolution2D(i*n, 3, 3, activation = 'elu', padding="same")(x)
-        x = Convolution2D(i*n, 3, 3, activation = 'elu', padding="same", subsample=(2,2))(x)
+        x = Convolution2D(i*n, 3, 3, activation = 'elu', padding="same", strides=(2,2))(x)
     
     x = Convolution2D(layers*n, 3, 3, activation = 'elu', padding="same")(x)
     x = Convolution2D(layers*n, 3, 3, activation = 'elu', padding="same")(x)
