@@ -1,6 +1,6 @@
-from keras.preprocessing import image
-from keras.datasets import cifar10
-from keras.optimizers import Adam
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.datasets import cifar10
+from tensorflow.keras.optimizers import Adam
 import numpy as np
 import models
 import train
