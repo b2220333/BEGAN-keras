@@ -28,15 +28,15 @@ def decoder(h, img_dim, channels, n = 128):
     x = Dense(n*init_dim**2)(mod_input)
     x = Reshape(shape(n, init_dim, init_dim))(x)
     
-    x = Convolution2D(n, 3, 3, activation = 'elu', border_mode="same")(x)
-    x = Convolution2D(n, 3, 3, activation = 'elu', border_mode="same")(x)
+    x = Convolution2D(n, 3, 3, activation = 'elu', padding="same")(x)
+    x = Convolution2D(n, 3, 3, activation = 'elu', padding="same")(x)
     
     for i in range(layers):
         x = UpSampling2D(size=(2,2))(x)
-        x = Convolution2D(n, 3, 3, activation = 'elu', border_mode="same")(x)
-        x = Convolution2D(n, 3, 3, activation = 'elu', border_mode="same")(x)
+        x = Convolution2D(n, 3, 3, activation = 'elu', padding="same")(x)
+        x = Convolution2D(n, 3, 3, activation = 'elu', padding="same")(x)
         
-    x = Convolution2D(channels, 3, 3, activation = 'elu', border_mode="same")(x)
+    x = Convolution2D(channels, 3, 3, activation = 'elu', padding="same")(x)
     
     return Model(mod_input,x)
 
@@ -54,14 +54,14 @@ def encoder(h, img_dim, channels, n = 128):
     layers = int(np.log2(img_dim) - 2)
     
     mod_input = Input(shape=shape(channels, img_dim, img_dim))
-    x = Convolution2D(channels, 3, 3, activation = 'elu', border_mode="same")(mod_input)
+    x = Convolution2D(channels, 3, 3, activation = 'elu', padding="same")(mod_input)
     
     for i in range(1, layers):
-        x = Convolution2D(i*n, 3, 3, activation = 'elu', border_mode="same")(x)
-        x = Convolution2D(i*n, 3, 3, activation = 'elu', border_mode="same", subsample=(2,2))(x)
+        x = Convolution2D(i*n, 3, 3, activation = 'elu', padding="same")(x)
+        x = Convolution2D(i*n, 3, 3, activation = 'elu', padding="same", subsample=(2,2))(x)
     
-    x = Convolution2D(layers*n, 3, 3, activation = 'elu', border_mode="same")(x)
-    x = Convolution2D(layers*n, 3, 3, activation = 'elu', border_mode="same")(x)
+    x = Convolution2D(layers*n, 3, 3, activation = 'elu', padding="same")(x)
+    x = Convolution2D(layers*n, 3, 3, activation = 'elu', padding="same")(x)
     
     x = Reshape((layers*n*init_dim**2,))(x)
     x = Dense(h)(x)
