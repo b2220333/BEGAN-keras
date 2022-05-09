@@ -9,10 +9,7 @@ def l1Loss(y_true, y_pred):
     return K.mean(K.abs(y_true - y_pred))
 
 def shape(depth, row, col):
-    if(K.image_dim_ordering() == 'th'):
-        return (depth, row, col)
-    else:
-        return (row, col, depth)
+    return (row, col, depth)
 
 def decoder(h, img_dim, channels, n = 128):
     '''
